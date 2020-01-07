@@ -1,4 +1,5 @@
-# centos7下安装docker
+# CENTOS7 DOCKER INSTALL  
+
 ## 查看linux发行版，内核
 ```
 [root@localhost ~]# cat /etc/redhat-release  #查看版本号
