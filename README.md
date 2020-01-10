@@ -18,9 +18,8 @@ yum install docker -y
 ```
 - 启动docker
 ```
-systemctl start docker  #启动docker
-systemctl enable docker #开机启动docker
-systemctl status docker #查看docker状态
+systemctl start docker
+
 ```
 - 查看docker 版本
 ```
@@ -43,19 +42,75 @@ Server:
  Built:           Sun Sep 15 14:06:47 2019
  OS/Arch:         linux/amd64
 ```
-- DaoCloud 加速器
-DaoCloud 加速器 是广受欢迎的 Docker 工具，解决了国内用户访问 Docker Hub 缓慢的问题。DaoCloud 加速器结合国内的 CDN 服务与协议层优化，成倍的提升了下载速度。
-> 使用前请先确保您的 Docker 版本在 1.8 或更高版本，否则无法使用加速。
+- 使用国内镜像加速
 ```
 vi /etc/docker/daemon.json #修改这个文件为如下内容
 
 {
-    "registry-mirrors": [
-        "http://95822026.m.daocloud.io"
-    ],
-    "insecure-registries": []
+"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/","https://hub-mirror.c.163.com","https://registry.docker-cn.com"],
+"insecure-registries": ["10.0.0.12:5000"]
 }
-
-#事后重启docker
+#事后重启守护进程并重启docker
+systemctl daemon-reload
 systemctl restart docker
 ```
+
+## 其他命令
+- 开机启动docker
+```
+systemctl enable docker
+```
+- 查看docker状态
+```
+systemctl status docker -l
+```
+- 重启docker服务
+```
+systemctl restart docker
+#或者
+service docker restart
+```
+- 关闭docker
+```
+systemctl stop docker
+#或者
+service docker stop
+```
+- 查看docker的系统信息
+```
+docker info
+```
+- 查看docker的镜像
+```
+docker images
+```
+- 删除镜像
+```
+docker rmi 镜像id
+```
+- 查看当前所有正在运行的容器
+```
+docker ps
+```
+- 查看全部容器
+```
+docker ps -as
+```
+- 关闭容器
+```
+docker stop 容器id
+```
+- 删除docker中的容器
+```
+docker rm 容器id
+```
+- 创建自定义网络
+```
+docker network create --subnet=172.18.0.0/16 docker-diy-network
+```
+- 查看docker网络
+```
+docker network ls
+```
+## docker容器入门
+https://www.jianshu.com/p/4c5a251e0768
